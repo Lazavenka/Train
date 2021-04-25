@@ -45,7 +45,7 @@ public class Train implements Iterable<Carriage>{
     }
 
     //Add locomotive instance only in head of train
-    public void appendLocomotive(Carriage locomotive) {
+    public void appendLocomotive(Locomotive locomotive) {
         locomotive.setNext(this.head);
         this.head = locomotive;
         if (this.numberOfCarriages == 0) {

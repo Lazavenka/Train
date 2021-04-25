@@ -25,7 +25,7 @@ public class Runner {
         Person personDriver = new Person(Age.of(25), "Tadeusz", "Kościuszko");
         personDriver.setDriverLicense(true);
 
-        train.appendLocomotive(factory.createCarriage(CarriageType.LOCOMOTIVE));
+        train.appendLocomotive((Locomotive) factory.createCarriage(CarriageType.LOCOMOTIVE));
         train.addCarriage(factory.createCarriage(CarriageType.COACH));
         train.addCarriage(factory.createCarriage(CarriageType.COACH));
         train.addCarriage(factory.createCarriage(CarriageType.FREIGHT_CARRIAGE));
