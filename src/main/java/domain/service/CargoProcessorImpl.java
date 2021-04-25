@@ -1,21 +1,21 @@
 package domain.service;
 
 import domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CargoProcessorImpl implements CargoProcessor {
+    private final Logger logger = LoggerFactory.getLogger(CargoProcessorImpl.class);
 
     @Override
     public int addCargo(Train train, Cargo cargo) {
-        for (Carriage carriage: train){
-            if (carriage instanceof FreightCarriage){
-                final int carriageNumber = ((FreightCarriage) carriage).addCargo(cargo);
-                if (carriageNumber > 0) {
-                    return carriageNumber;
+        for (Carriage carriage : train) {
+            if (carriage instanceof FreightCarriage) {
+                final boolean success = ((FreightCarriage) carriage).addCargo(cargo);
+                if (success) {
+                    return carriage.getCarriageNumber();
                 }
             }
         }
@@ -39,10 +39,13 @@ public class CargoProcessorImpl implements CargoProcessor {
         List<Cargo> allCargo = new ArrayList<>();
         for (Carriage carriage : train) {
             if (carriage instanceof FreightCarriage) {
-                ((FreightCarriage) carriage).getCargoList().forEach(System.out::println);
+                logger.debug("Carriage " + carriage.getCarriageNumber() + ", contains " +
+                        ((FreightCarriage) carriage).getCargoList().size() + " items.");
+                allCargo.addAll(((FreightCarriage) carriage).getCargoList());
             }
         }
         return allCargo;
     }
+
 
 }

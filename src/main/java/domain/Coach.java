@@ -13,7 +13,7 @@ public class Coach extends Carriage {
     private final Map<Integer, Seat> seats;
 
     public Coach() {
-        this(40, 58_000);
+        this(20, 58_000);
     }
 
     public Coach(int maxNumberOfPassengers, long carriageWeight) {
@@ -27,43 +27,39 @@ public class Coach extends Carriage {
         return maxNumberOfPassengers;
     }
 
-    public Map<Integer, Seat> getSeats() {
-        return seats;
-    }
-
     public UUID getSeatID(int seatNumber) {
         checkArgument(seatNumber > 0, "Seat number must be positive!",
                 new IllegalArgumentException());
-        checkArgument(seatNumber < this.maxNumberOfPassengers,
+        checkArgument(seatNumber <= this.maxNumberOfPassengers,
                 "Must be less than max number of passengers", new IllegalArgumentException());
         return this.seats.get(seatNumber).getSeatId();
     }
-    public UUID reserveSeat(int seatNumber){
+
+    public Optional<UUID> reserveSeat(int seatNumber){
         if(provideEmptySeatNumbersList().contains(seatNumber)){
             seats.get(seatNumber).changeStatus(false);
-            return getSeatID(seatNumber);
+            return Optional.of(getSeatID(seatNumber));
         }
-        return null;
+        return Optional.empty();
     }
     public List<Seat> provideEmptySeatList(){
         return seats.values().stream().filter(Seat::isEmpty).collect(Collectors.toList());
     }
+    //Тренировка по Stream.api
     public List<Integer> provideEmptySeatNumbersList(){
-        List<Integer> list = new ArrayList<>();
-        for (Map.Entry<Integer, Seat> entry: seats.entrySet()){
-            if(entry.getValue().isEmpty()){
-                list.add(entry.getKey());
-            }
-        }
+        List<Integer> list;
+        list = seats.entrySet()
+                .stream().filter(entry -> entry.getValue().isEmpty())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
         return list;
     }
     public Map<Integer, UUID> provideEmptySeatMap(){
-        Map<Integer, UUID> map = new HashMap<>();
-        for (Map.Entry<Integer, Seat> entry: seats.entrySet()){
-            if (entry.getValue().isEmpty()){
-                map.put(entry.getKey(),  entry.getValue().getSeatId());
-            }
-        }
+        Map<Integer, UUID> map;
+        map = seats.entrySet().stream()
+                .filter(entry -> entry.getValue().isEmpty())
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getSeatId()));
+
         return map;
     }
 }

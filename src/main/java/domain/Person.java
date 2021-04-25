@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class Person {
@@ -32,10 +33,16 @@ public class Person {
         this.ticket = ticket;
     }
 
-    public void setDriverLicense(boolean license){
+    public void setDriverLicense(boolean license) {
         this.driverLicense = license;
     }
+
     public boolean isDriverLicense() {
         return driverLicense;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + ", age - " + age;
     }
 }

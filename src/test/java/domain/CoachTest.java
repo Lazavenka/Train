@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -54,9 +55,9 @@ class CoachTest {
         Coach coach = anyCoach(5);
         final int reservedSeatNumber = 2;
         final UUID generatedSeatID = coach.getSeatID(reservedSeatNumber);
-        final UUID returnedID = coach.reserveSeat(reservedSeatNumber);
+        final Optional<UUID> returnedID = coach.reserveSeat(reservedSeatNumber);
 
-        assertThat(returnedID, is(equalTo(generatedSeatID)));
+        assertThat(returnedID, is(equalTo(Optional.of(generatedSeatID))));
 
     }
 
@@ -65,9 +66,9 @@ class CoachTest {
         Coach coach = anyCoach(5);
         final int reservedSeatNumber = 10;
 
-        final UUID returnedID = coach.reserveSeat(reservedSeatNumber);
+        final Optional<UUID> returnedID = coach.reserveSeat(reservedSeatNumber);
 
-        assertThat(returnedID, is(nullValue()));
+        assertThat(returnedID, is(Optional.empty()));
 
     }
     private void reserveAllSeats(Coach coach){

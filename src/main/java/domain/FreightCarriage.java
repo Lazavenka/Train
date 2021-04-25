@@ -17,31 +17,29 @@ public class FreightCarriage extends Carriage {
         cargoList = new ArrayList<>();
     }
 
-    private boolean checkTotalCargoWeight(Cargo cargo) {
-        final long cargoWeight = cargo.getWeight();
-        final long totalCargoWeight = getTotalCargoWeight();
-
-        return (this.liftingCapacity - totalCargoWeight) >= cargoWeight;
-    }
-
     private long getTotalCargoWeight() {
         return cargoList.stream().mapToLong(Cargo::getWeight).sum();
     }
-    public List<Cargo> getCargoList(){
+
+    public List<Cargo> getCargoList() {
         return cargoList;
     }
-    public int addCargo(Cargo cargo) {
-        if (checkTotalCargoWeight(cargo)) {
+
+    public boolean addCargo(Cargo cargo) {
+        if (isAvailableForLoadCargo(cargo) && !containsCargo(cargo)) {
             this.cargoList.add(cargo);
-            return this.carriageNumber;
+            return true;
         } else {
-            return -1;
+            return false;
         }
 
     }
 
-    public long getLiftingCapacity() {
-        return liftingCapacity;
+    private boolean isAvailableForLoadCargo(Cargo cargo) {
+        final long cargoWeight = cargo.getWeight();
+        final long totalCargoWeight = getTotalCargoWeight();
+
+        return (this.liftingCapacity - totalCargoWeight) >= cargoWeight;
     }
 
     public boolean containsCargo(Cargo cargo) {

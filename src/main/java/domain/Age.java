@@ -7,15 +7,20 @@ public class Age {
 
     private Age(int value) {
         checkArgument(value >= 0, "Age must be positive!");
-        checkArgument( value < 125, "Age must be positive!");
+        checkArgument(value < 125, "Age must be positive!");
         this.value = value;
     }
 
-    public static Age of(int value){
+    public static Age of(int value) {
         return new Age(value);
     }
 
-    public int intValue(){
+    public int intValue() {
         return this.value;
+    }
+
+    @Override
+    public String toString() {
+        return "" + value;
     }
 }

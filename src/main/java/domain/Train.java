@@ -6,12 +6,15 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 public class Train implements Iterable<Carriage>{
-
+    private final String trainNumber;
     private Carriage head;
     private Carriage tail;
 
     private int numberOfCarriages;
 
+    public Train(String trainNumber){
+        this.trainNumber = trainNumber;
+    }
     public Carriage getHead() {
         return head;
     }
@@ -48,7 +51,7 @@ public class Train implements Iterable<Carriage>{
         if (this.numberOfCarriages == 0) {
             this.tail = this.head;
         }
-        this.numberOfCarriages++;
+        this.numberOfCarriages++; //Locomotive first carriage or not?
     }
 
     public boolean setTrainDriver(Person person, AccessDecisionMaker accessDecisionMaker) {
