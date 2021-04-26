@@ -1,20 +1,16 @@
 package driver.access.rule;
 
-import data.PersonSamples;
 import domain.Person;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static data.DunyRulesSamples.*;
 import static data.PersonSamples.anyValidDriver;
 import static data.PersonSamples.anyValidPerson;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AccessDecisionMakerTest {
-    Person person;
+    private Person person;
     private AccessDecisionMaker accessDecisionMaker;
 
 
@@ -63,19 +59,4 @@ class AccessDecisionMakerTest {
         assertThat(hasAccess, is(true));
     }
 
-    private List<DriverDenyRule> getDenyRules() {
-        AgeDenyRule ageDenyRule = new AgeDenyRule();
-        LicenseDenyRule licenseDenyRule = new LicenseDenyRule();
-        return List.of(ageDenyRule, licenseDenyRule);
-    }
-
-    private List<DriverDenyRule> getAgeDenyRule() {
-        AgeDenyRule ageDenyRule = new AgeDenyRule();
-        return List.of(ageDenyRule);
-    }
-
-    private List<DriverDenyRule> getLicenseDenyRule() {
-        LicenseDenyRule licenseDenyRule = new LicenseDenyRule();
-        return List.of(licenseDenyRule);
-    }
 }

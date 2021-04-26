@@ -21,7 +21,4 @@ public class Locomotive extends Carriage {
         this.driver = driver;
     }
 
-    public boolean run() {
-        return driver != null;
-    }
 }

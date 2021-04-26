@@ -25,10 +25,8 @@ public class CargoProcessorImpl implements CargoProcessor {
     @Override
     public int findCargo(Train train, Cargo cargo) {
         for (Carriage carriage : train) {
-            if (carriage instanceof FreightCarriage) {
-                if (((FreightCarriage) carriage).containsCargo(cargo)) {
-                    return carriage.getCarriageNumber();
-                }
+            if (carriage instanceof FreightCarriage && ((FreightCarriage) carriage).getCargoList().contains(cargo)) {
+                return carriage.getCarriageNumber();
             }
         }
         return -1;
@@ -39,7 +37,7 @@ public class CargoProcessorImpl implements CargoProcessor {
         List<Cargo> allCargo = new ArrayList<>();
         for (Carriage carriage : train) {
             if (carriage instanceof FreightCarriage) {
-                logger.debug("Carriage " + carriage.getCarriageNumber() + ", contains " +
+                logger.info("Carriage " + carriage.getCarriageNumber() + ", contains " +
                         ((FreightCarriage) carriage).getCargoList().size() + " items.");
                 allCargo.addAll(((FreightCarriage) carriage).getCargoList());
             }

@@ -1,12 +1,10 @@
 package domain;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 import static data.CarriageSamples.anyCoach;
 import static org.hamcrest.CoreMatchers.*;
@@ -15,13 +13,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 class CoachTest {
 
-
     @Test
     void provideEmptySeatListIDs() {
         Coach coach = anyCoach();
         List<Seat> emptySeatList = coach.provideEmptySeatList();
         emptySeatList.forEach(seat -> assertThat(seat.isEmpty(), is(true)));
     }
+
     @Test
     void getSeatID_CorrectSeatNumber() {
         Coach coach = anyCoach(10);
@@ -37,9 +35,11 @@ class CoachTest {
         Coach coach = anyCoach(10);
         final int seatNumber = 25;
 
-        assertThat(exceptionOf(()->coach.getSeatID(seatNumber)), instanceOf(IllegalArgumentException.class));
+        final UUID id = coach.getSeatID(seatNumber);
 
+        assertThat(id, is(nullValue()));
     }
+
     @Test
     void provideEmptySeatList_AllSeatsReserved() {
         Coach coach = anyCoach();
@@ -71,19 +71,11 @@ class CoachTest {
         assertThat(returnedID, is(Optional.empty()));
 
     }
-    private void reserveAllSeats(Coach coach){
-        List <Integer> seats = coach.provideEmptySeatNumbersList();
-        for (int i: seats){
-            coach.reserveSeat(i);
-        }
-    }
 
-    public static Throwable exceptionOf(Callable<?> callable) {
-        try {
-            callable.call();
-            return null;
-        } catch (Throwable t) {
-            return t;
+    private void reserveAllSeats(Coach coach) {
+        List<Integer> seats = coach.provideEmptySeatNumbersList();
+        for (int i : seats) {
+            coach.reserveSeat(i);
         }
     }
 }

@@ -7,6 +7,7 @@ public class FreightCarriage extends Carriage {
     private final long liftingCapacity;
     private final List<Cargo> cargoList;
 
+    //default constructor used in factory
     public FreightCarriage() {
         this(23_000, 68_000);
     }
@@ -17,16 +18,12 @@ public class FreightCarriage extends Carriage {
         cargoList = new ArrayList<>();
     }
 
-    private long getTotalCargoWeight() {
-        return cargoList.stream().mapToLong(Cargo::getWeight).sum();
-    }
-
     public List<Cargo> getCargoList() {
         return cargoList;
     }
 
     public boolean addCargo(Cargo cargo) {
-        if (isAvailableForLoadCargo(cargo) && !containsCargo(cargo)) {
+        if (isAvailableForLoadCargo(cargo) && !cargoList.contains(cargo)) {
             this.cargoList.add(cargo);
             return true;
         } else {
@@ -36,14 +33,11 @@ public class FreightCarriage extends Carriage {
     }
 
     private boolean isAvailableForLoadCargo(Cargo cargo) {
-        final long cargoWeight = cargo.getWeight();
-        final long totalCargoWeight = getTotalCargoWeight();
-
-        return (this.liftingCapacity - totalCargoWeight) >= cargoWeight;
+        return (this.liftingCapacity - getTotalCargoWeight()) >= cargo.getWeight();
     }
 
-    public boolean containsCargo(Cargo cargo) {
-        return cargoList.contains(cargo);
+    private long getTotalCargoWeight() {
+        return cargoList.stream().mapToLong(Cargo::getWeight).sum();
     }
 
     @Override

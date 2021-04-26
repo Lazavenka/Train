@@ -8,21 +8,16 @@ import domain.Train;
 import java.util.*;
 
 public class TicketSellerImpl implements TicketSeller {
+
     @Override
     public boolean sellTicket(Train train, int carriageNumber, int seatNumber, Person person) {
-        UUID seatID;
         for (Carriage carriage : train) {
-            if (carriage instanceof Coach && carriage.getCarriageNumber() == carriageNumber &&
-                    ((Coach) carriage).provideEmptySeatNumbersList().contains(seatNumber)) {
-                final Optional<UUID> reserveSeatID = ((Coach) carriage).reserveSeat(seatNumber);
-                if (reserveSeatID.isPresent()) {
-                    seatID = reserveSeatID.get();
-                    person.setTicket(seatID);
-                    return true;
-                }
+            if (carriage instanceof Coach && carriage.getCarriageNumber() == carriageNumber) {
+                final Optional<UUID> optReserveSeatID = ((Coach) carriage).reserveSeat(seatNumber);
+                optReserveSeatID.ifPresentOrElse(person::setTicket, () -> person.setTicket(null));
             }
         }
-        return false;
+        return person.getTicket() != null;
     }
 
     @Override

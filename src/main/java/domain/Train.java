@@ -1,20 +1,19 @@
 package domain;
 
-import driver.access.rule.AccessDecisionMaker;
-
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class Train implements Iterable<Carriage>{
+public class Train implements Iterable<Carriage> {
     private final String trainNumber;
     private Carriage head;
     private Carriage tail;
 
     private int numberOfCarriages;
 
-    public Train(String trainNumber){
+    public Train(String trainNumber) {
         this.trainNumber = trainNumber;
     }
+
     public Carriage getHead() {
         return head;
     }
@@ -25,6 +24,10 @@ public class Train implements Iterable<Carriage>{
 
     public int getNumberOfCarriages() {
         return numberOfCarriages;
+    }
+
+    public String getTrainNumber() {
+        return trainNumber;
     }
 
     public void addCarriage(CarriageType carriageType, SimpleCarriageFactory factory) {
@@ -52,22 +55,15 @@ public class Train implements Iterable<Carriage>{
             this.tail = this.head;
         }
         this.numberOfCarriages++; //Locomotive first carriage or not?
+        carriageNumbersRefresh();
     }
 
-    public boolean setTrainDriver(Person person, AccessDecisionMaker accessDecisionMaker) {
-        if (this.head instanceof Locomotive) {
-            if (accessDecisionMaker.hasAccess(person)) {
-                ((Locomotive) this.head).setDriver(person);
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+    private void carriageNumbersRefresh(){
+        int number = 0;
+        for (Carriage carriage: this){
+            carriage.setCarriageNumber(++number);
         }
-
     }
-
 
     @Override
     public Iterator<Carriage> iterator() {

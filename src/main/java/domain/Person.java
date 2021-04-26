@@ -20,10 +20,6 @@ public class Person {
         return age.intValue();
     }
 
-    public String getName() {
-        return firstName;
-    }
-
     public UUID getTicket() {
         return ticket;
     }
