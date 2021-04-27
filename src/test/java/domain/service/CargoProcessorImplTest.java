@@ -84,10 +84,6 @@ class CargoProcessorImplTest {
         assertThat(carriageNumberWithCargo, is(-1));
     }
 
-    @Test
-    void provideAllCargo() {
-    }
-
     private void putCargo(Train train, Cargo cargo) {
         cargoProcessor.addCargo(train, cargo);
     }

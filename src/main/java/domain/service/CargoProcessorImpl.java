@@ -15,10 +15,13 @@ public class CargoProcessorImpl implements CargoProcessor {
             if (carriage instanceof FreightCarriage) {
                 final boolean success = ((FreightCarriage) carriage).addCargo(cargo);
                 if (success) {
-                    return carriage.getCarriageNumber();
+                    final int carriageNumber = carriage.getCarriageNumber();
+                    logger.info("Cargo " + cargo + " successfully add in carriage #" + carriageNumber);
+                    return carriageNumber;
                 }
             }
         }
+        logger.info("Carriage is not added in train " + train.getTrainNumber());
         return -1;
     }
 
@@ -26,9 +29,11 @@ public class CargoProcessorImpl implements CargoProcessor {
     public int findCargo(Train train, Cargo cargo) {
         for (Carriage carriage : train) {
             if (carriage instanceof FreightCarriage && ((FreightCarriage) carriage).getCargoList().contains(cargo)) {
+                logger.info("Find " + cargo + " in carriage #" + carriage.getCarriageNumber());
                 return carriage.getCarriageNumber();
             }
         }
+        logger.info("Cargo is not found in train " + train.getTrainNumber());
         return -1;
     }
 
@@ -37,9 +42,10 @@ public class CargoProcessorImpl implements CargoProcessor {
         List<Cargo> allCargo = new ArrayList<>();
         for (Carriage carriage : train) {
             if (carriage instanceof FreightCarriage) {
+                final List<Cargo> cargoList = ((FreightCarriage) carriage).getCargoList();
                 logger.info("Carriage " + carriage.getCarriageNumber() + ", contains " +
-                        ((FreightCarriage) carriage).getCargoList().size() + " items.");
-                allCargo.addAll(((FreightCarriage) carriage).getCargoList());
+                        cargoList.size() + " items.");
+                allCargo.addAll(cargoList);
             }
         }
         return allCargo;

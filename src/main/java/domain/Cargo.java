@@ -42,10 +42,6 @@ public class Cargo {
 
     @Override
     public String toString() {
-        return "Cargo{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", weight=" + weight +
-                '}';
+        return "Cargo -> "+ name + ", weight = " + weight;
     }
 }
