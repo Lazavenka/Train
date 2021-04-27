@@ -1,4 +1,4 @@
-package domain.service;
+package service;
 
 import domain.*;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package domain.service;
+package service;
 
 import domain.Cargo;
 import domain.Train;

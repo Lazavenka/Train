@@ -1,5 +1,7 @@
 package domain;
 
+import factory.SimpleCarriageFactory;
+
 import java.util.Iterator;
 import java.util.ListIterator;
 

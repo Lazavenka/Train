@@ -1,5 +1,6 @@
 import domain.*;
-import domain.service.*;
+import factory.SimpleCarriageFactory;
+import service.*;
 import driver.access.rule.AccessDecisionMaker;
 import driver.access.rule.AgeDenyRule;
 import driver.access.rule.DriverDenyRule;
@@ -16,7 +17,7 @@ public class Runner {
     public static void main(String[] args) {
         Train train = new Train("FF123");
         TicketSeller ticketSeller = new TicketSellerImpl();
-        CargoProcessor cargoProcessor = new CargoProcessorImpl();
+        CargoProcessor cargoProcessors = new CargoProcessorImpl();
         SimpleCarriageFactory factory = new SimpleCarriageFactory();
 
         List<DriverDenyRule> rules = new ArrayList<>();
@@ -52,16 +53,16 @@ public class Runner {
 
         System.out.println("-----------------------------");
 
-        cargoProcessor.provideAllCargo(train).forEach(entry -> logger.info(entry.toString()));
+        cargoProcessors.provideAllCargo(train).forEach(entry -> logger.info(entry.toString()));
 
-        final int addPotato = cargoProcessor.addCargo(train, potato);
-        final int addSugar = cargoProcessor.addCargo(train, sugar);
-        final int addMorePotato = cargoProcessor.addCargo(train, morePotato);
+        final int addPotato = cargoProcessors.addCargo(train, potato);
+        final int addSugar = cargoProcessors.addCargo(train, sugar);
+        final int addMorePotato = cargoProcessors.addCargo(train, morePotato);
         logger.info(addPotato + " " + addSugar + " " + addMorePotato);
-        final int carriageWithPotatoNumber = cargoProcessor.findCargo(train, potato);
+        final int carriageWithPotatoNumber = cargoProcessors.findCargo(train, potato);
 
         logger.info("Potato in carriage #" + carriageWithPotatoNumber);
-        cargoProcessor.provideAllCargo(train).forEach(entry -> logger.info(entry.toString()));
+        cargoProcessors.provideAllCargo(train).forEach(entry -> logger.info(entry.toString()));
 
         Coach coach = new Coach(4, 25_000);
         logger.info(coach.provideEmptySeatMap().toString());

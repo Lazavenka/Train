@@ -1,4 +1,6 @@
-package domain;
+package factory;
+
+import domain.*;
 
 public class SimpleCarriageFactory {
     public Carriage createCarriage(CarriageType type){
