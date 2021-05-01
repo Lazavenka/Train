@@ -6,7 +6,7 @@ import driver.access.rule.AccessDecisionMaker;
 import org.junit.jupiter.api.Test;
 
 import static data.CarriageSamples.anyLocomotive;
-import static data.DunyRulesSamples.getDenyRules;
+import static data.DenyRulesSamples.getDenyRules;
 import static data.PersonSamples.*;
 import static data.TrainSamples.anyCorrectPassengerTrain;
 import static data.TrainSamples.anyEmptyTrain;

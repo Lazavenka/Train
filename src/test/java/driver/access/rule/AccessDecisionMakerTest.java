@@ -3,7 +3,7 @@ package driver.access.rule;
 import domain.Person;
 import org.junit.jupiter.api.Test;
 
-import static data.DunyRulesSamples.*;
+import static data.DenyRulesSamples.*;
 import static data.PersonSamples.anyValidDriver;
 import static data.PersonSamples.anyValidPerson;
 import static org.hamcrest.CoreMatchers.is;

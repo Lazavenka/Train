@@ -6,7 +6,7 @@ import driver.access.rule.LicenseDenyRule;
 
 import java.util.List;
 
-public class DunyRulesSamples {
+public class DenyRulesSamples {
     public static List<DriverDenyRule> getDenyRules() {
         AgeDenyRule ageDenyRule = new AgeDenyRule();
         LicenseDenyRule licenseDenyRule = new LicenseDenyRule();

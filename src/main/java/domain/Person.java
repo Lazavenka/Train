@@ -1,23 +1,21 @@
 package domain;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Person {
-    private final Age age;
+    private final LocalDate birthDate;
     private final String firstName;
     private final String lastName;
 
     private boolean driverLicense;
     private UUID ticket;
 
-    public Person(Age age, String firstName, String lastName) {
-        this.age = age;
+    public Person(String firstName, String lastName, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age.intValue();
+        this.birthDate = birthDate;
     }
 
     public UUID getTicket() {
@@ -36,8 +34,12 @@ public class Person {
         return driverLicense;
     }
 
+    public LocalDate getBirthDate(){
+        return birthDate;
+    }
+
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", age - " + age;
+        return firstName + " " + lastName + ", birthday - " + birthDate;
     }
 }

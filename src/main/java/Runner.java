@@ -8,6 +8,7 @@ import driver.access.rule.LicenseDenyRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +28,9 @@ public class Runner {
 
         TrainDriverProcessor trainDriverProcessor = new TrainDriverProcessorImpl();
 
-        Person person = new Person(Age.of(17), "Konstanty", "Kalinowski");
+        Person person = new Person("Konstanty", "Kalinowski", LocalDate.of(2005, 4, 9));
 
-        Person personDriver = new Person(Age.of(25), "Tadeusz", "Kościuszko");
+        Person personDriver = new Person( "Tadeusz", "Kościuszko", LocalDate.of(1995, 8, 10));
         personDriver.setDriverLicense(true);
 
         train.appendLocomotive((Locomotive) factory.createCarriage(CarriageType.LOCOMOTIVE));
